@@ -1326,7 +1326,7 @@ static int cy8c_ts_remove(struct i2c_client *client)
 
 	return 0;
 }
-f
+
 static int cy8c_ts_suspend(struct i2c_client *client, pm_message_t mesg)
 {
 	struct cy8c_ts_data *ts = i2c_get_clientdata(client);
