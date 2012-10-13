@@ -944,6 +944,7 @@ static irqreturn_t cy8c_ts_irq_thread(int irq, void *ptr)
 					ts->pre_finger_data[1] = finger_data[0][1];
 				}
 #ifdef CONFIG_TOUCHSCREEN_CYPRESS_SWEEP2WAKE
+				//left->right
 				if ((ts->finger_count == 1) && (scr_suspended == true)) {
 					prevx = 240;
 					nextx = 580;
@@ -974,6 +975,7 @@ static irqreturn_t cy8c_ts_irq_thread(int irq, void *ptr)
 							}
 						}
 					}
+				//right->left
 				} else if ((ts->finger_count == 1) && (scr_suspended == false)) {
 					prevx = 1020;
 					nextx = 680;
