@@ -1272,6 +1272,7 @@ static int cy8c_ts_suspend(struct i2c_client *client, pm_message_t mesg)
 {
 #ifdef CONFIG_TOUCHSCREEN_CYPRESS_SWEEP2WAKE
 	scr_suspended = true;
+	enable_irq_wake(client->irq);
 #else
 	struct cy8c_ts_data *ts = i2c_get_clientdata(client);
 	uint8_t buf[2] = {0};
@@ -1311,7 +1312,7 @@ static int cy8c_ts_resume(struct i2c_client *client)
 {
 #ifdef CONFIG_TOUCHSCREEN_CYPRESS_SWEEP2WAKE
 	scr_suspended = false;
-	wake_unlock(&sweep2wake_wake_lock);
+	disable_irq_wake(client->irq);
 #else
 	struct cy8c_ts_data *ts = i2c_get_clientdata(client);
 	uint8_t buf[2] = {0};
