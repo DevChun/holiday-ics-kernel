@@ -1015,29 +1015,29 @@ static irqreturn_t cy8c_ts_irq_thread(int irq, void *ptr)
 #ifdef CONFIG_TOUCHSCREEN_CYPRESS_SWEEP2WAKE
 				//left->right
 				if ((ts->finger_count == 1) && (scr_suspended == true) && (s2w_switch > 0)) {
-					prevx = 240;
-					nextx = 580;
+					prevx = 30;
+					nextx = 300;
 					if ((barrier[0] == true) ||
 					   ((finger_data[loop_i][0] > prevx) &&
 					    (finger_data[loop_i][0] < nextx) &&
-					    (finger_data[loop_i][1] > 960))) {
+					    (finger_data[loop_i][1] > 950))) {
 						if ((led_exec_count == true) && (scr_on_touch == false) && (s2w_switch != 2)) {
 							pm8058_drvx_led_brightness_set(sweep2wake_leddev, 255);
 							printk(KERN_INFO "[sweep2wake]: activated button_backlight");
 							led_exec_count = false;
 						}
-						prevx = 580;
-						nextx = 920;
+						prevx = 300;
+						nextx = 680;
 						barrier[0] = true;
 						if ((barrier[1] == true) ||
 						   ((finger_data[loop_i][0] > prevx) &&
 						    (finger_data[loop_i][0] < nextx) &&
-						    (finger_data[loop_i][1] > 960))) {
-							prevx = 920;
+						    (finger_data[loop_i][1] > 950))) {
+							prevx = 680;
 							barrier[1] = true;
 							if ((finger_data[loop_i][0] > prevx) &&
-							    (finger_data[loop_i][1] > 960)) {
-								if (finger_data[loop_i][0] > 960) {
+							    (finger_data[loop_i][1] > 950)) {
+								if (finger_data[loop_i][0] > 840) {
 									if (exec_count) {
 										printk(KERN_INFO "[sweep2wake]: ON");
 										sweep2wake_pwrtrigger();
@@ -1051,24 +1051,24 @@ static irqreturn_t cy8c_ts_irq_thread(int irq, void *ptr)
 				//right->left
 				} else if ((ts->finger_count == 1) && (scr_suspended == false) && (s2w_switch > 0)) {
 					scr_on_touch=true;
-					prevx = 1020;
+					prevx = 1050;
 					nextx = 680;
 					if ((barrier[0] == true) ||
 					   ((finger_data[loop_i][0] < prevx) &&
 					    (finger_data[loop_i][0] > nextx) &&
-					    ( finger_data[loop_i][1] > 960))) {
+					    ( finger_data[loop_i][1] > 950))) {
 						prevx = 680;
 						nextx = 340;
 						barrier[0] = true;
 						if ((barrier[1] == true) ||
 						   ((finger_data[loop_i][0] < prevx) &&
 						    (finger_data[loop_i][0] > nextx) &&
-						    (finger_data[loop_i][1] > 960))) {
+						    (finger_data[loop_i][1] > 950))) {
 							prevx = 340;
 							barrier[1] = true;
 							if ((finger_data[loop_i][0] < prevx) &&
-							    (finger_data[loop_i][1] > 960)) {
-								if (finger_data[loop_i][0] < 200) {
+							    (finger_data[loop_i][1] > 950)) {
+								if (finger_data[loop_i][0] < 250) {
 									if (exec_count) {
 										printk(KERN_INFO "[sweep2wake]: OFF");
 										sweep2wake_pwrtrigger();
