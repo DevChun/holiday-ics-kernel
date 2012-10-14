@@ -907,9 +907,9 @@ static irqreturn_t cy8c_ts_irq_thread(int irq, void *ptr)
 
 		if (ts->ambiguous_state == ts->finger_count
 			|| ts->ambiguous_state == report) {
-			if (ts->flag_htc_event == 0)
+			if (ts->flag_htc_event == 0) {
 				input_mt_sync(ts->input_dev);
-			else {
+			} else {
 				input_report_abs(ts->input_dev, ABS_MT_AMPLITUDE, 0);
 				input_report_abs(ts->input_dev, ABS_MT_POSITION, 1 << 31);
 			}
@@ -968,6 +968,9 @@ static irqreturn_t cy8c_ts_irq_thread(int irq, void *ptr)
 
 			base = 3;
 		}
+
+		/* reset sameFilter */
+		ts->sameFilter[2] = ts->sameFilter[0] = ts->sameFilter[1] = -1;
 
 		for (loop_i = 0; loop_i < ts->finger_count; loop_i++) {
 			if (!(ts->grip_suppression & BIT(loop_i))) {
@@ -1084,8 +1087,7 @@ static irqreturn_t cy8c_ts_irq_thread(int irq, void *ptr)
 			}
 		}
 		if ((ts->unlock_page) &&
-			((ts->p_finger_count > ts->finger_count) ||
-			(ts->finger_count == 4))) {
+			(ts->finger_count == 4)) {
 			cy8c_reset_baseline();
 		}
 	} else {
@@ -1275,7 +1277,7 @@ static int cy8c_ts_probe(struct i2c_client *client,
 	}
 
 	ret = request_threaded_irq(client->irq, NULL, cy8c_ts_irq_thread,
-			  IRQF_TRIGGER_FALLING | IRQF_ONESHOT, "cy8c_ts", ts);
+			  IRQF_TRIGGER_LOW | IRQF_ONESHOT, "cy8c_ts", ts);
 	if (ret != 0) {
 		dev_err(&client->dev, "TOUCH_ERR: request_irq failed\n");
 		dev_err(&client->dev, "TOUCH_ERR: don't support method without irq\n");
