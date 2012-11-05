@@ -149,6 +149,13 @@
 #define UI_INT2_N 34
 #define UI_INT3_N 14
 
+#ifdef CONFIG_CMDLINE_OPTIONS
+	/* setters for cmdline_gpu */
+	int set_kgsl_3d0_freq(unsigned int freq0, unsigned int freq1);
+	int set_kgsl_2d0_freq(unsigned int freq);
+	int set_kgsl_2d1_freq(unsigned int freq);
+#endif
+
 /* Macros assume PMIC GPIOs start at 0 */
 #define PM8058_GPIO_BASE			NR_MSM_GPIOS
 #define PM8058_GPIO_PM_TO_SYS(pm_gpio)		(pm_gpio + PM8058_GPIO_BASE)
@@ -7132,6 +7139,13 @@ static void __init msm8x60_init(struct msm_board_data *board_data)
 
 	fixup_i2c_configs();
 	register_i2c_devices();
+
+#ifdef CONFIG_CMDLINE_OPTIONS
+	/* setters for cmdline_gpu */
+	set_kgsl_3d0_freq(cmdline_3dgpu[0], cmdline_3dgpu[1]);
+	set_kgsl_2d0_freq(cmdline_2dgpu);
+	set_kgsl_2d1_freq(cmdline_2dgpu);
+#endif
 
 #ifdef CONFIG_FB_MSM_HDMI_MHL
 	holiday_mhl_init();
