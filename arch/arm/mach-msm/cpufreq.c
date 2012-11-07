@@ -98,6 +98,9 @@ char cmdline_gov[16] = "SavagedZen";
 #ifdef CONFIG_CPU_FREQ_DEFAULT_GOV_SCARY
 char cmdline_gov[16] = "Scary";
 #endif
+#ifdef CONFIG_CPU_FREQ_DEFAULT_GOV_BADASS
+char cmdline_gov[16] = "badass";
+#endif
 
 uint32_t cmdline_maxscroff = 486000;
 bool cmdline_scroff = false;
