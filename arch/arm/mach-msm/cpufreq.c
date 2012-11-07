@@ -95,9 +95,6 @@ char cmdline_gov[16] = "Lionheart";
 #ifdef CONFIG_CPU_FREQ_DEFAULT_GOV_SAVAGEDZEN
 char cmdline_gov[16] = "SavagedZen";
 #endif
-#ifdef CONFIG_CPU_FREQ_DEFAULT_GOV_SCARY
-char cmdline_gov[16] = "Scary";
-#endif
 #ifdef CONFIG_CPU_FREQ_DEFAULT_GOV_BADASS
 char cmdline_gov[16] = "badass";
 #endif

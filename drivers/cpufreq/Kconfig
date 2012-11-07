@@ -149,13 +149,6 @@ config CPU_FREQ_DEFAULT_GOV_SAVAGEDZEN
 	help
 	  Use the CPUFreq governor 'savagedzen' as default.
 
-config CPU_FREQ_DEFAULT_GOV_SCARY
-	bool "scary"
-	select CPU_FREQ_GOV_SCARY
-	select CPU_FREQ_GOV_SCARY
-	help
-	  Use the CPUFreq governor 'scary' as default.
-
 config CPU_FREQ_DEFAULT_GOV_BADASS
 	bool "badass"
 	select CPU_FREQ_GOV_BADASS
@@ -298,13 +291,6 @@ config CPU_FREQ_GOV_LIONHEART
 config CPU_FREQ_GOV_SAVAGEDZEN
 	tristate "'savagedzen' cpufreq governor"
 	depends on CPU_FREQ
-
-config CPU_FREQ_GOV_SCARY
-	tristate "'scary' cpufreq governor"
-	depends on CPU_FREQ
-	help
-	  scary - a governor for cabbages
-	  If in doubt, say N.
 
 config CPU_FREQ_GOV_BADASS
 	tristate "'badass' cpufreq policy governor"
