@@ -79,4 +79,5 @@ GTAGS
 *.orig
 *~
 \#*#
-build
+honest_kernel
+git
