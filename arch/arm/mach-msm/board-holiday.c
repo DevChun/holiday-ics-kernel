@@ -1234,7 +1234,7 @@ static void msm_hsusb_vbus_power(bool on)
 static int holiday_phy_init_seq[] = { 0x06, 0x36, 0x0C, 0x31, 0x31, 0x32, 0x1, 0x0E, 0x1, 0x11, -1 };
 static struct msm_otg_platform_data msm_otg_pdata = {
 	.phy_init_seq		= holiday_phy_init_seq,
-	.mode			= USB_PERIPHERAL,
+	.mode			= USB_OTG,
 	.otg_control		= OTG_PMIC_CONTROL,
 	.phy_type		= CI_45NM_INTEGRATED_PHY,
 	.vbus_power		= msm_hsusb_vbus_power,
@@ -6759,6 +6759,7 @@ static struct platform_device *holiday_devices[] __initdata = {
 
 #if defined(CONFIG_USB_GADGET_MSM_72K) || defined(CONFIG_USB_EHCI_HCD)
 	&msm_device_otg,
+	&msm_device_hsusb_host,
 #endif
 #ifdef CONFIG_BATTERY_MSM
 	&msm_batt_device,
